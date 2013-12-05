@@ -7,6 +7,12 @@ Assumes that `angular` is in the global scope (part of `window`).
 
 ## examples
 
+**setup:**
+```javascript
+// somewhere in your client side code that gets processed by browserify:
+require('geomoment-angular');
+```
+
 **factory:**
 ```javascript
 function myController($scope, geomoment) {
