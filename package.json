@@ -1,6 +1,6 @@
 {
   "name": "geomoment-angular",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "An angular module for date formatting; wraps geomoment. For use with browserify.",
   "main": "lib/index.js",
   "scripts": {

@@ -8,7 +8,7 @@ app.filter 'formatDate', ->
   (date, tzid, outFormat) ->
     return '' if !date?
     throw Error 'tzid required' unless tzid
-    outFormat = geomoment.formats[outformat] if outFormat in Object.keys geomoment.formats
+    outFormat = geomoment.formats[outFormat] if outFormat in Object.keys geomoment.formats
     geomoment(date).tz(tzid).format(outFormat)
 
 app.filter 'formatDay', ->
