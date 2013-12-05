@@ -23,4 +23,6 @@ app.filter 'formatDay', ->
     throw Error "Unknown format identifier '#{outFormat}'" unless outFormat in Object.keys formats
     geomoment.day(day, moment.pacific.tzid).format formats[outFormat]
 
-app.filter
+app.factory 'geomoment', -> geomoment
+
+app
