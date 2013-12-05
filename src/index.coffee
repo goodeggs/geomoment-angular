@@ -1,5 +1,5 @@
 geomoment = require 'geomoment/lib/client'
-module.exports = app = angular.module 'geomoment'
+module.exports = app = angular.module 'geomoment', []
 
 formats =
   dashes: 'YYYY-MM-DD'
