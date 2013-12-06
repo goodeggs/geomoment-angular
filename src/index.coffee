@@ -1,5 +1,5 @@
 geomoment = require 'geomoment/lib/client'
-module.exports = app = angular.module 'geomoment', []
+app = angular.module 'geomoment', []
 
 app.filter 'date', ->
   -> throw Error 'Please use `formatDate` instead of `date`.'
@@ -14,7 +14,7 @@ app.filter 'formatDate', ->
 app.filter 'formatDay', ->
   (day, outFormat) ->
     throw Error "Unknown format identifier '#{outFormat}'" unless outFormat in Object.keys geomoment.formats
-    geomoment.day(day, moment.pacific.tzid).format geomoment.formats[outFormat]
+    geomoment.day(day, geomoment.pacific.tzid).format geomoment.formats[outFormat]
 
 app.factory 'geomoment', -> geomoment
 

@@ -1,11 +1,11 @@
 {
   "name": "geomoment-angular",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "An angular module for date formatting; wraps geomoment. For use with browserify.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script spec/*.spec.coffee",
-    "pretest": "./node_modules/.bin/coffee --bare --compile --output lib/ src/"
+    "test": "karma start spec/karma.config.coffee",
+    "pretest": "./node_modules/.bin/coffee --bare --compile --output lib/ src/ && ./node_modules/.bin/browserify lib/index.js > geomoment-angular.js && ./node_modules/.bin/uglifyjs geomoment-angular.js > geomoment-angular.min.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,12 @@
   "devDependencies": {
     "mocha": "~1.15.1",
     "coffee-script": "~1.6.3",
-    "chai": "~1.8.1"
+    "chai": "~1.8.1",
+    "browserify": "~2.36.1",
+    "uglify-js": "~2.4.6",
+    "angular": "~1.2.2",
+    "karma-mocha": "~0.1.1",
+    "karma-chai": "~0.0.2",
+    "karma": "~0.10.8"
   }
 }
