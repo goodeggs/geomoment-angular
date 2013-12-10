@@ -1,6 +1,11 @@
 geomoment = require 'geomoment/lib/client'
 app = angular.module 'geomoment', []
 
+formatDate = (dateMoment, outFormat) ->
+  outFormat = geomoment.formats[outFormat] if outFormat in Object.keys geomoment.formats
+  dateMoment.format(outFormat)
+
+
 app.filter 'date', ->
   -> throw Error 'Please use `formatDate` instead of `date`.'
 
@@ -8,13 +13,11 @@ app.filter 'formatDate', ->
   (date, tzid, outFormat) ->
     return '' if !date?
     throw Error 'tzid required' unless tzid
-    outFormat = geomoment.formats[outFormat] if outFormat in Object.keys geomoment.formats
-    geomoment(date).tz(tzid).format(outFormat)
+    formatDate geomoment(date).tz(tzid), outFormat
 
 app.filter 'formatDay', ->
   (day, outFormat) ->
-    throw Error "Unknown format identifier '#{outFormat}'" unless outFormat in Object.keys geomoment.formats
-    geomoment.day(day, geomoment.pacific.tzid).format geomoment.formats[outFormat]
+    formatDate geomoment.day(day, geomoment.pacific.tzid), outFormat
 
 app.factory 'geomoment', -> geomoment
 
