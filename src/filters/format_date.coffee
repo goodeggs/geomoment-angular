@@ -1,5 +1,4 @@
 app = angular.module 'geomoment'
-formatDate = require '../helpers/format_date'
 
 app.filter 'formatDate', ['geomoment', (geomoment) ->
   (date, tzid, outFormat) ->

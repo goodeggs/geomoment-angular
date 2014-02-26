@@ -6,4 +6,6 @@ require './filters/date'
 require './filters/format_date'
 require './filters/format_day'
 
+require './directives/geomoment'
+
 app
