@@ -21,18 +21,17 @@ app.directive 'geomoment', ($parse, geomoment) ->
     # set up validation and conversion from time string to Date object
     model.$parsers.unshift (value) ->
       parameters = getParameters scope
-      defaultValue = if parameters.masks? then model.$modelValue else undefined
 
       if not value? or value.trim().length is 0
         model.$setValidity 'invalidGeomoment', yes
         model.$setValidity 'beforeGeomoment', yes
         model.$setValidity 'afterGeomoment', yes
-        return defaultValue
+        return null
 
       moment = momentFromString value, parameters
       unless moment.isValid()
         model.$setValidity 'invalidGeomoment', no
-        return defaultValue
+        return model.$modelValue
       model.$setValidity 'invalidGeomoment', yes
 
       moment = maskTime(moment, parameters)
@@ -44,7 +43,6 @@ app.directive 'geomoment', ($parse, geomoment) ->
             model.$setValidity validator, yes
           else
             model.$setValidity validator, no
-            return defaultValue
 
       return moment.toDate()
 
