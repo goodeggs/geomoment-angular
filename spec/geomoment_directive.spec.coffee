@@ -40,6 +40,11 @@ describe 'geomoment_directive', ->
       element.val('').triggerHandler('input')
       expect(scope.testform.$valid).to.be.true
 
+    it 'updates if model changes', ->
+      scope.dateTime = new Date '2014-03-01T19:00:00-08:00'
+      scope.$digest()
+      expect(element.val()).to.equal '7:00pm'
+
   describe 'boundary validation', ->
     beforeEach ->
       inject ($compile, $rootScope) ->
