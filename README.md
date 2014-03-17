@@ -3,16 +3,12 @@
 [![NPM](https://nodei.co/npm/geomoment-angular.png)](https://nodei.co/npm/geomoment-angular/)
 
 An [angular.js](http://angularjs.org/) module for date formatting with explicit timezones; wraps [geomoment](https://github.com/goodeggs/geomoment).
-For use with [browserify](https://github.com/substack/node-browserify).
-
-Assumes that `angular` is in the global scope (part of `window`).
 
 ## examples
 
 **setup:**
 ```javascript
-// somewhere in your client side code that gets processed by browserify:
-require('geomoment-angular');
+angular.module('my-module', ['geomoment']);
 ```
 
 **factory:**
