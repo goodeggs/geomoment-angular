@@ -1,7 +1,5 @@
 # geomoment-angular
 
-[![NPM](https://nodei.co/npm/geomoment-angular.png)](https://nodei.co/npm/geomoment-angular/)
-
 An [angular.js](http://angularjs.org/) module for date formatting with explicit timezones; wraps [geomoment](https://github.com/goodeggs/geomoment).
 
 ## examples
