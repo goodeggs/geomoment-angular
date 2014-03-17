@@ -23,9 +23,11 @@ function myController($scope, geomoment) {
 ```
 
 **filters:**
-```html
-<strong>{{'2013-02-08T09:30' | formatDate:'America/Los_Angeles':'h:mm:ssa'}}</strong> becomes <strong>9:30:00am</strong>
-<strong>{{'2013-02-08' | formatDay:'weekday'}}</strong> becomes <strong>Friday</strong>
-<strong>{{'2013-02-08T09:30' | addTime:'days':1 | formatDay:'MMM Do YYYY h:mma'}}</strong> becomes <strong>Feb 9th 2013 9:30am</strong>
-<strong>{{'2013-02-08T09:30' | subtractTime:'hours':9 | formatDay:'MMM Do YYYY h:mma'}}</strong> becomes <strong>Feb 8th 2013 12:30am</strong>
-```
+
+<table>
+<tr><th>Filter example</th><th>Result</th>
+<tr><td><code>{{'2013-02-08T09:30' | formatDate:'America/Los_Angeles':'h:mm:ssa'}}</code></td><td>9:30:00am</td></tr>
+<tr><td><code>{{'2013-02-08' | formatDay:'weekday'}}</code></td><td>Friday</td></tr>
+<tr><td><code>{{'2013-02-08T09:30' | addTime:'days':1 | formatDay:'MMM Do YYYY h:mma'}}</code></td><td>Feb 9th 2013 9:30am</td></tr>
+<tr><td><code>{{'2013-02-08T09:30' | subtractTime:'hours':9 | formatDay:'MMM Do YYYY h:mma'}}</code></td><td>Feb 8th 2013 12:30am</td></tr>
+</table>
