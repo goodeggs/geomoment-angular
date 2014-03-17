@@ -9,11 +9,11 @@ An [angular.js](http://angularjs.org/) module for date formatting with explicit 
 angular.module('my-module', ['geomoment']);
 ```
 
-**factory:**
+**service:**
 ```javascript
-function myController($scope, geomoment) {
+injectedFunction = ['geomoment', function(geomoment) {
   geomoment.day('2013-02-08');
-}
+}];
 ```
 
 **filters:**
