@@ -6,10 +6,11 @@ describe 'geomoment_directive', ->
       module('geomoment')
 
       inject ($compile, $rootScope) ->
-        directive = $compile('<input type="text" geomoment="h:mma" masks="hours,minutes" tzid="tzid" ng-model="dateTime"></input>')($rootScope)
-        scope = $rootScope
+        scope = $rootScope.$new true
         scope.dateTime = new Date '2014-03-01T10:00:00-08:00'
         scope.tzid = "America/Los_Angeles"
+
+        directive = $compile('<input type="text" geomoment="h:mma" masks="hours,minutes" tzid="tzid" ng-model="dateTime"></input>')(scope)
         scope.$digest()
 
     describe 'form', ->
