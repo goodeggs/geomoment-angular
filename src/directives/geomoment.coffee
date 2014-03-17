@@ -11,7 +11,7 @@ app.directive 'geomoment', ($parse, geomoment) ->
 
     # load information from the scope based on attributes
     getters = {}
-    for attr, name of {geomoment: 'formats', 'tzid', 'masks', 'modelFormat', 'before', 'after'}
+    for attr, name of {geomoment: 'formats', 'tzid', 'masks', 'before', 'after'}
       do (attr, name) ->
         getters[name] = try
           $parse(attrs[attr])
@@ -46,13 +46,13 @@ app.directive 'geomoment', ($parse, geomoment) ->
             model.$setValidity validator, no
             return defaultValue
 
-      return formatTime(moment, parameters)
+      return moment.toDate()
 
     # Convert Date object into a time string formatted appropriately
     model.$formatters.unshift (value) ->
       return unless value?
       parameters = getParameters(scope)
-      moment = if parameters.modelFormat then geomoment(value, parameters.modelFormat) else geomoment value
+      moment = geomoment value
       moment = moment.tz(parameters.tzid) if parameters.tzid?
       moment.format [].concat(parameters.formats)[0]
 
@@ -106,10 +106,3 @@ app.directive 'geomoment', ($parse, geomoment) ->
       outMoment = geomoment(model.$modelValue).tz(tzid)
       outMoment[mask](inMoment[mask]()) for mask in masks
       outMoment
-
-    # apply the chosen format to the timestamp (defaulting to JS date object)
-    formatTime = (moment, {modelFormat}) ->
-      if modelFormat?
-        moment.format modelFormat
-      else
-        moment.toDate()
