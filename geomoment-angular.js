@@ -91,7 +91,7 @@ app.directive('geomoment', function($parse, geomoment) {
             validator = "" + direction + "Geomoment";
             return scope.$watch(getters[direction], function(value) {
               var result;
-              if (!value) {
+              if (!(value && model.$modelValue)) {
                 return;
               }
               result = geomoment(model.$modelValue)[checker](value);

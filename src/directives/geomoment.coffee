@@ -66,7 +66,7 @@ app.directive 'geomoment', ($parse, geomoment) ->
         do (direction, checker) ->
           validator = "#{direction}Geomoment"
           scope.$watch getters[direction], (value) ->
-            return unless value
+            return unless value and model.$modelValue
             result = geomoment(model.$modelValue)[checker] value
             if result
               model.$setValidity validator, yes

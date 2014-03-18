@@ -99,6 +99,11 @@ describe 'geomoment_directive', ->
       element.val('').triggerHandler('input')
       expect(scope.testform.$valid).to.be.true
 
+    it 'displays validation errors when boundary condition changes', ->
+      scope.lowerBound = new Date '2014-03-01T12:00:00-08:00'
+      scope.$digest()
+      expect(scope.testform.$error.afterGeomoment).to.be.ok
+
   describe 'boundary validation with masks', ->
     beforeEach ->
       inject ($compile, $rootScope) ->
@@ -119,3 +124,24 @@ describe 'geomoment_directive', ->
     it 'displays validation error if masks are outside of boundary conditions', ->
       element.val('8:00am').triggerHandler('input')
       expect(scope.testform.$error.afterGeomoment).to.be.ok
+
+  describe 'boundary validation with initially empty input', ->
+    beforeEach ->
+      inject ($compile, $rootScope) ->
+        scope = $rootScope.$new true
+        scope.lowerBound = new Date '2014-04-02T09:00:00-08:00'
+
+        scope.tzid = "America/Los_Angeles"
+
+        form = $compile('<form name="testform"><input type="text" geomoment="h:mma" after="lowerBound" tzid="tzid" ng-model="dateTime"></input></form>')(scope)
+
+        element = angular.element(form.contents()[0])
+        scope.$digest()
+
+    it 'starts form off as valid', ->
+      expect(scope.testform.$valid).to.be.true
+
+    it 'leaves form as valid when the boundary changes', ->
+      scope.lowerBound = new Date '2014-04-02T09:05:00-08:00'
+      scope.$digest()
+      expect(scope.testform.$valid).to.be.true
