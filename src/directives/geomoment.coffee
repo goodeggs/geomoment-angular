@@ -39,7 +39,7 @@ app.directive 'geomoment', ($parse, geomoment) ->
       for direction, checker of directions
         if parameters[direction]?
           validator = "#{direction}Geomoment"
-          if moment[checker] parameters[direction]
+          if moment[checker] maskTime(geomoment(parameters[direction]), parameters)
             model.$setValidity validator, yes
           else
             model.$setValidity validator, no

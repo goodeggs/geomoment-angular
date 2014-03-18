@@ -57,7 +57,7 @@ app.directive('geomoment', function($parse, geomoment) {
           checker = directions[direction];
           if (parameters[direction] != null) {
             validator = "" + direction + "Geomoment";
-            if (moment[checker](parameters[direction])) {
+            if (moment[checker](maskTime(geomoment(parameters[direction]), parameters))) {
               model.$setValidity(validator, true);
             } else {
               model.$setValidity(validator, false);

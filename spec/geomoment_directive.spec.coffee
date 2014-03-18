@@ -83,3 +83,24 @@ describe 'geomoment_directive', ->
       element.val('').triggerHandler('input')
       expect(scope.testform.$valid).to.be.true
 
+  describe 'boundary validation with masks', ->
+    beforeEach ->
+      inject ($compile, $rootScope) ->
+        scope = $rootScope.$new true
+        scope.lowerBound = new Date '2014-04-02T09:00:00-08:00'
+
+        scope.tzid = "America/Los_Angeles"
+
+        form = $compile('<form name="testform"><input type="text" geomoment="h:mma" after="lowerBound" masks="hours,minutes" tzid="tzid" ng-model="dateTime"></input></form>')(scope)
+
+        element = angular.element(form.contents()[0])
+        scope.$digest()
+
+    it 'leaves form valid if masks are within boundary conditions', ->
+      element.val('10:00pm').triggerHandler('input')
+      expect(scope.testform.$valid).to.be.true
+
+    it 'displays validation error if masks are outside of boundary conditions', ->
+      element.val('8:00am').triggerHandler('input')
+      expect(scope.testform.$error.afterGeomoment).to.be.ok
+
