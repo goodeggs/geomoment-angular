@@ -76,6 +76,7 @@ app.directive 'geomoment', ($parse, geomoment) ->
     # make the element display the time cleanly when it is blurred
     # (that way the user knows that the system registered their intent.)
     elm.on 'blur', ->
+      return unless model.$viewValue?.trim().length
       parameters = getParameters scope
       moment = momentFromString model.$viewValue, parameters
       moment = moment.tz(parameters.tzid) if parameters.tzid?

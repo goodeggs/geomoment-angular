@@ -45,6 +45,22 @@ describe 'geomoment_directive', ->
       scope.$digest()
       expect(element.val()).to.equal '7:00pm'
 
+  describe 'basic field (starting empty)', ->
+    beforeEach ->
+      inject ($compile, $rootScope) ->
+        scope = $rootScope.$new true
+        scope.values = {}
+        scope.tzid = "America/Los_Angeles"
+
+        form = $compile('<form name="testform"><input type="text" geomoment="YYYY-MM-DD (dddd)" masks="month,day,year" tzid="tzid" ng-model="values.dateTime"></input></form>')(scope)
+
+        element = angular.element(form.contents()[0])
+        scope.$digest()
+
+    it 'does nothing on blur if value is still unset', ->
+      element.triggerHandler('blur')
+      expect(element.val()).to.equal ''
+
   describe 'boundary validation', ->
     beforeEach ->
       inject ($compile, $rootScope) ->
@@ -103,4 +119,3 @@ describe 'geomoment_directive', ->
     it 'displays validation error if masks are outside of boundary conditions', ->
       element.val('8:00am').triggerHandler('input')
       expect(scope.testform.$error.afterGeomoment).to.be.ok
-
