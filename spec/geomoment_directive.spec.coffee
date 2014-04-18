@@ -61,6 +61,10 @@ describe 'geomoment_directive', ->
       element.triggerHandler('blur')
       expect(element.val()).to.equal ''
 
+    it 'can set a partial time', ->
+      element.val('8:08am').triggerHandler('input')
+      expect(scope.dateTime).to.deep.equal new Date '2014-03-01T08:08:00-08:00'
+
   describe 'boundary validation', ->
     beforeEach ->
       inject ($compile, $rootScope) ->
