@@ -2,7 +2,17 @@
 
 An [angular.js](http://angularjs.org/) module for date formatting with explicit timezones; wraps [geomoment](https://github.com/goodeggs/geomoment).
 
-## examples
+# Installation
+
+```
+<script src="angular.js" />
+<script src="moment.js" />
+<script src="moment-timezone.js" />
+<script src="geomoment.js" />
+<script src="geomoment-angular.js" />
+```
+
+## Examples
 
 **setup:**
 ```javascript
