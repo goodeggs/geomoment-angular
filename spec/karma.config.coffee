@@ -12,8 +12,13 @@ module.exports = (config) ->
 
     # list of files / patterns to load in the browser
     files: [
+      'node_modules/moment/min/moment.min.js'
+      'node_modules/moment-timezone/min/moment-timezone.min.js'
+
       'spec/angular.js',
       'spec/angular-mocks.js',
+
+      'node_modules/geomoment/geomoment.min.js'
 
       'geomoment-angular.js',
 
