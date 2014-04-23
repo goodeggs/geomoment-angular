@@ -39,7 +39,7 @@ app.directive 'geomoment', ($parse, geomoment) ->
       for direction, checker of directions
         if parameters[direction]?
           validator = "#{direction}Geomoment"
-          if moment[checker] maskTime(geomoment(parameters[direction]), parameters)
+          if moment[checker] maskTime(geomoment(parameters[direction]), parameters, moment)
             model.$setValidity validator, yes
           else
             model.$setValidity validator, no
@@ -99,9 +99,9 @@ app.directive 'geomoment', ($parse, geomoment) ->
         geomoment(timeString, formats)
 
     # only apply the parts of the timestamp that we explicitly call out
-    maskTime = (inMoment, {masks, tzid}) ->
-      return inMoment unless masks?
+    maskTime = (inMoment, {masks, tzid}, maskOver = model.$modelValue) ->
+      return inMoment unless masks? and maskOver
       masks = masks.split(',') unless typeof masks is 'array'
-      outMoment = geomoment(model.$modelValue).tz(tzid)
+      outMoment = geomoment(maskOver).tz(tzid)
       outMoment[mask](inMoment[mask]()) for mask in masks
       outMoment

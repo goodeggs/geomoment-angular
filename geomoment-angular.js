@@ -57,7 +57,7 @@ app.directive('geomoment', function($parse, geomoment) {
           checker = directions[direction];
           if (parameters[direction] != null) {
             validator = "" + direction + "Geomoment";
-            if (moment[checker](maskTime(geomoment(parameters[direction]), parameters))) {
+            if (moment[checker](maskTime(geomoment(parameters[direction]), parameters, moment))) {
               model.$setValidity(validator, true);
             } else {
               model.$setValidity(validator, false);
@@ -137,16 +137,19 @@ app.directive('geomoment', function($parse, geomoment) {
           return geomoment(timeString, formats);
         }
       };
-      return maskTime = function(inMoment, _arg) {
+      return maskTime = function(inMoment, _arg, maskOver) {
         var mask, masks, outMoment, tzid, _i, _len;
         masks = _arg.masks, tzid = _arg.tzid;
-        if (masks == null) {
+        if (maskOver == null) {
+          maskOver = model.$modelValue;
+        }
+        if (!((masks != null) && maskOver)) {
           return inMoment;
         }
         if (typeof masks !== 'array') {
           masks = masks.split(',');
         }
-        outMoment = geomoment(model.$modelValue).tz(tzid);
+        outMoment = geomoment(maskOver).tz(tzid);
         for (_i = 0, _len = masks.length; _i < _len; _i++) {
           mask = masks[_i];
           outMoment[mask](inMoment[mask]());
@@ -1337,7 +1340,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
     function deprecate(msg, fn) {
         var firstTime = true;
-        function printMsg() {
+      function printMsg() {
+        console.log(new Error().stack);
             if (moment.suppressDeprecationWarnings === false &&
                     typeof console !== 'undefined' && console.warn) {
                 console.warn("Deprecation warning: " + msg);
