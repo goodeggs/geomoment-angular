@@ -205,6 +205,7 @@ app = angular.module('geomoment');
 app.filter('formatDate', [
   'geomoment', function(geomoment) {
     return function(date, tzid, outFormat) {
+      var format, name;
       if (date == null) {
         return '';
       }
@@ -214,7 +215,16 @@ app.filter('formatDate', [
       if (__indexOf.call(Object.keys(geomoment.formats), outFormat) >= 0) {
         outFormat = geomoment.formats[outFormat];
       }
-      return geomoment(date).tz(tzid).format(outFormat);
+      return geomoment(date, (function() {
+        var _ref, _results;
+        _ref = geomoment.formats;
+        _results = [];
+        for (name in _ref) {
+          format = _ref[name];
+          _results.push(format);
+        }
+        return _results;
+      })()).tz(tzid).format(outFormat);
     };
   }
 ]);

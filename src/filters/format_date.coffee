@@ -5,6 +5,6 @@ app.filter 'formatDate', ['geomoment', (geomoment) ->
     return '' if !date?
     throw Error 'tzid required' unless tzid
     outFormat = geomoment.formats[outFormat] if outFormat in Object.keys geomoment.formats
-    geomoment(date).tz(tzid).format(outFormat)
+    geomoment(date, (format for name, format of geomoment.formats)).tz(tzid).format(outFormat)
 ]
 
