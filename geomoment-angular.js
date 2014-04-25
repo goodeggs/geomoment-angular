@@ -289,8 +289,8 @@ app;
 },{"./directives/geomoment":1,"./factories/geomoment":2,"./filters/add_time":3,"./filters/date":4,"./filters/format_date":5,"./filters/format_day":6,"./filters/subtract_time":7}],9:[function(require,module,exports){
 module.exports={
   "day": "YYYY-MM-DD",
-  "time": "HH:MM",
-  "dayTime": "YYYY-MM-DD HH:MM",
+  "time": "HH:mm",
+  "dayTime": "YYYY-MM-DD HH:mm",
 
   "iCalDay": "YYYYMMDD",
   "iCalTime": "HHmmss",
@@ -303,7 +303,9 @@ module.exports={
   "abbrvDay": "ddd MMM D",
   "longDay": "dddd, MMMM D, YYYY",
 
-  "weekday": "dddd"
+  "weekday": "dddd",
+
+  "unixDate": "ddd MMM DD YYYY HH:mm:ss"
 }
 
 },{}],10:[function(require,module,exports){
@@ -1340,8 +1342,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
     function deprecate(msg, fn) {
         var firstTime = true;
-      function printMsg() {
-        console.log(new Error().stack);
+        function printMsg() {
             if (moment.suppressDeprecationWarnings === false &&
                     typeof console !== 'undefined' && console.warn) {
                 console.warn("Deprecation warning: " + msg);
