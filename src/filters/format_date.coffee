@@ -14,10 +14,10 @@ app.filter 'formatDate', ['geomoment', (geomoment) ->
       if iso8601Regexp.test(date)
         parsedDate = geomoment date
       unless parsedDate?.isValid()
-        outFormat = geomoment.formats[outFormat] if outFormat in Object.keys geomoment.formats
         parsedDate = geomoment(date, (format for name, format of geomoment.formats))
     else
       parsedDate = geomoment(date)
 
+    outFormat = geomoment.formats[outFormat] if outFormat in Object.keys geomoment.formats
     parsedDate.tz(tzid).format(outFormat)
 ]

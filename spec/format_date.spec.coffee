@@ -33,7 +33,10 @@ describe 'formatDate', ->
 
     beforeEach ->
       inject (geomoment) ->
-        momentObject = geomoment('1999-12-13 14:15', 'YYYY-MM-DD HH:mm')
+        momentObject = geomoment('1999-12-13T14:15:00Z', 'YYYY-MM-DD HH:mm')
 
     it 'formats a date given a timezone', ->
       expect(formatDate(momentObject, 'America/New_York', 'YYYY-MM-DD')).to.equal '1999-12-13'
+
+    it 'formats a time given a timezone', ->
+      expect(formatDate(momentObject, 'America/New_York', 'time')).to.equal '17:15'
