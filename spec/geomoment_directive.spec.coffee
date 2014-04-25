@@ -67,6 +67,10 @@ describe 'geomoment_directive', ->
       element.val('8:08am').triggerHandler('input')
       expect(geomoment(scope.values.dateTime).format('h:mma', scope.tzid)).to.equal '8:08am'
 
+    it 'sets invalid dates', ->
+      element.val('99:gz').triggerHandler('input')
+      expect(scope.values.dateTime).to.not.be.ok
+
   describe 'boundary validation', ->
     beforeEach ->
       inject ($compile, $rootScope) ->
