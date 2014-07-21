@@ -27,7 +27,7 @@
     "url": "https://github.com/goodeggs/geomoment-angular/issues"
   },
   "dependencies": {
-    "geomoment": "0.5.3"
+    "geomoment": "^0.6.1"
   },
   "devDependencies": {
     "mocha": "~1.15.1",
