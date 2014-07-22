@@ -19,6 +19,7 @@ app.directive('geomoment', function($parse, geomoment) {
         geomoment: 'formats',
         'tzid': 'tzid',
         'masks': 'masks',
+        'maskDefault': 'maskDefault',
         'before': 'before',
         'after': 'after'
       };
@@ -36,6 +37,11 @@ app.directive('geomoment', function($parse, geomoment) {
       for (attr in _ref) {
         name = _ref[attr];
         _fn(attr, name);
+      }
+      if (attrs.maskDefault == null) {
+        getters.maskDefault = function() {
+          return model.$modelValue;
+        };
       }
       model.$parsers.unshift(function(value) {
         var checker, direction, moment, parameters, validator;
@@ -141,7 +147,7 @@ app.directive('geomoment', function($parse, geomoment) {
         var mask, masks, outMoment, tzid, _i, _len;
         masks = _arg.masks, tzid = _arg.tzid;
         if (maskOver == null) {
-          maskOver = model.$modelValue;
+          maskOver = getters.maskDefault(scope);
         }
         if (!((masks != null) && maskOver)) {
           return inMoment;

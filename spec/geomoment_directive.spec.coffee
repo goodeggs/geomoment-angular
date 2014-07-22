@@ -71,6 +71,45 @@ describe 'geomoment_directive', ->
       element.val('99:gz').triggerHandler('input')
       expect(scope.values.dateTime).to.not.be.ok
 
+  describe 'basic field with a set maskDefault', ->
+
+    beforeEach ->
+      inject ($compile, $rootScope) ->
+        scope = $rootScope.$new true
+        scope.values = {}
+        scope.tzid = "America/Los_Angeles"
+        form = $compile('<form name="testform"><input type="text" geomoment="h:mma" masks="hours,minutes" mask-default="2014-03-01T10:00:00-08:00" tzid="tzid" ng-model="values.dateTime"></input></form>')(scope)
+
+        element = angular.element(form.contents()[0])
+        scope.$digest()
+
+    it 'does not set model value initially', ->
+      expect(scope.values.dateTime).to.be.undefined
+
+    it 'masks the model value properly', ->
+      element.val('12:25am').triggerHandler('input')
+      expect(geomoment(scope.values.dateTime).format('YYYY-MM-DD h:mma')).to.equal '2014-03-01 12:25am'
+
+  describe 'basic field with a maskDefault on the scope', ->
+
+    beforeEach ->
+      inject ($compile, $rootScope) ->
+        scope = $rootScope.$new true
+        scope.values = {}
+        scope.tzid = "America/Los_Angeles"
+        scope.maskDefault = "2014-03-01T10:00:00-08:00"
+        form = $compile('<form name="testform"><input type="text" geomoment="h:mma" masks="hours,minutes" mask-default="maskDefault" tzid="tzid" ng-model="values.dateTime"></input></form>')(scope)
+
+        element = angular.element(form.contents()[0])
+        scope.$digest()
+
+    it 'does not set model value initially', ->
+      expect(scope.values.dateTime).to.be.undefined
+
+    it 'masks the model value properly', ->
+      element.val('12:25am').triggerHandler('input')
+      expect(geomoment(scope.values.dateTime).format('YYYY-MM-DD h:mma')).to.equal '2014-03-01 12:25am'
+
   describe 'boundary validation', ->
     beforeEach ->
       inject ($compile, $rootScope) ->

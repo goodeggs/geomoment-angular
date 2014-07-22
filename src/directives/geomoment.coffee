@@ -11,12 +11,15 @@ app.directive 'geomoment', ($parse, geomoment) ->
 
     # load information from the scope based on attributes
     getters = {}
-    for attr, name of {geomoment: 'formats', 'tzid', 'masks', 'before', 'after'}
+    for attr, name of {geomoment: 'formats', 'tzid', 'masks', 'maskDefault', 'before', 'after'}
       do (attr, name) ->
         getters[name] = try
           $parse(attrs[attr])
         catch
           -> attrs[attr]
+
+    unless attrs.maskDefault?
+      getters.maskDefault = -> model.$modelValue
 
     # set up validation and conversion from time string to Date object
     model.$parsers.unshift (value) ->
@@ -99,7 +102,7 @@ app.directive 'geomoment', ($parse, geomoment) ->
         geomoment(timeString, formats)
 
     # only apply the parts of the timestamp that we explicitly call out
-    maskTime = (inMoment, {masks, tzid}, maskOver = model.$modelValue) ->
+    maskTime = (inMoment, {masks, tzid}, maskOver = getters.maskDefault(scope)) ->
       return inMoment unless masks? and maskOver
       masks = masks.split(',') unless typeof masks is 'array'
       outMoment = geomoment(maskOver).tz(tzid)
